@@ -2,7 +2,7 @@ import pandas as pd
 import numpy as np
 from scipy.stats import uniform
 
-chat_id = 123456
+chat_id = 506081330
 
 def solution(p: float, x: np.array) -> tuple:
     # Вычисляем параметры равномерного распределения
