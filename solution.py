@@ -1,17 +1,25 @@
 import pandas as pd
 import numpy as np
+from scipy.stats import uniform
 
-from scipy.stats import norm
-
-
-chat_id = 123456 # Ваш chat ID, не меняйте название переменной
+chat_id = 123456
 
 def solution(p: float, x: np.array) -> tuple:
-    # Измените код этой функции
-    # Это будет вашим решением
-    # Не меняйте название функции и её аргументы
+    # Вычисляем параметры равномерного распределения
+    a = 0.071
+    b = np.max(x)
+    
+    # Вычисляем уровень значимости alpha на основе уровня доверия p
     alpha = 1 - p
-    loc = x.mean()
-    scale = np.sqrt(np.var(x)) / np.sqrt(len(x))
-    return loc - scale * norm.ppf(1 - alpha / 2), \
-           loc - scale * norm.ppf(alpha / 2)
+    
+    # Находим квантиль порядка 1-alpha для равномерного распределения на отрезке [0,1]
+    quantile = uniform.ppf(1 - alpha, loc=a, scale=b-a)
+    
+    # Вычисляем границы доверительного интервала для параметра b
+    lower_bound = quantile
+    upper_bound = b
+    
+    # Возвращаем границы доверительного интервала в виде кортежа
+    return lower_bound, upper_bound
+
+
